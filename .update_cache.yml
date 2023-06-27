@@ -1,0 +1,77 @@
+image: node:16
+
+stages:
+  - build
+  - test
+  - deploy
+  - deployment tests
+  - cache
+
+cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+        - node_modules/
+    policy: pull
+
+update cache:
+    stage: cache
+    script:
+        - npm install
+    cache:
+        key: ${CI_COMMIT_REF_SLUG}
+        paths:
+            - node_modules/
+        policy: push
+    only:
+        - schedules
+
+build website:
+    stage: build
+    script:
+        - npm install
+        - npm install -g gatsby-cli@4.24.0
+        - gatsby build
+    artifacts:
+        paths:
+            - ./public
+    except:
+        - schedules
+
+test artifact:
+    cache: {}
+    image: alpine
+    stage: test
+    script:
+        - grep -q "Gatsby" ./public/index.html
+    except:
+        - schedules
+
+test website:
+    stage: test
+    script:
+        - npm install
+        - npm install -g gatsby-cli@4.24.0
+        - gatsby serve & 
+        - sleep 3
+        - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby"
+    except:
+        - schedules
+
+deploy to surge:
+    cache: {}
+    stage: deploy
+    script:
+        - npm install --global surge
+        - surge --project ./public --domain tashita.surge.sh
+    except:
+        - schedules
+
+test deployment:
+    image: alpine
+    cache: {}
+    stage: deployment tests
+    script:
+        - apk add curl
+        - curl -s "https://tashita.surge.sh" | grep -q "Gatsby!"
+    except:
+        - schedules
