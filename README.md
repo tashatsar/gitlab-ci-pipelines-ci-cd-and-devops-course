@@ -51,4 +51,6 @@ Sometimes caches misbehave: to delete the cache go from your project > Pipelines
 
 
 
-Predefined environment variables and environment variables
+Predefined environment variables and environment variables.
+
+Different environments and destroying environenvironments
