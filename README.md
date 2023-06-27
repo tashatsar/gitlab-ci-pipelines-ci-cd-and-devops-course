@@ -57,6 +57,6 @@ Sometimes caches misbehave: to delete the cache go from your project > Pipelines
 
 
 
-Predefined environment variables and environment variables.
+[Predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html) and environment variables.
 
-Different environments and destroying environenvironments
+Different environments and destroying environments.
