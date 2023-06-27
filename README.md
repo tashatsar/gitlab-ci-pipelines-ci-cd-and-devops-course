@@ -1,5 +1,11 @@
-# Gitlab CI course notes
+# Gitlab CI course notes 💻📕🚀
 
+## [GitLab CI: Pipelines, CI/CD and DevOps for Beginners](https://www.udemy.com/course/gitlab-ci-pipelines-ci-cd-and-devops-for-beginners/):🐌
+- 👍Pro: examples of code that are very easy to understand or reuse👌 
+- 👎Cons: Assignments are useful, but boring
+- ⌚Duration: 6.5 hours
+ 
+  
 ## CI/CD Pipeline steps
 - Code 👨‍💻
 - CI Pipeline 📦:
