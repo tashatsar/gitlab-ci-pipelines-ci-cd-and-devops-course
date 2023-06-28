@@ -1,12 +1,12 @@
 # Gitlab CI course notes 💻📕🚀
 
 ## [GitLab CI: Pipelines, CI/CD and DevOps for Beginners](https://www.udemy.com/course/gitlab-ci-pipelines-ci-cd-and-devops-for-beginners/):🐌
-- 👍Pro: examples of code that are very easy to understand or reuse👌 
-- 👎Cons: Assignments are useful, but boring
-- ⌚Duration: 6.5 hours
+- 👍Pro: examples of code that are very easy to understand or reuse. PDF file will all lecture notes👌 
+- 👎Cons: Assignments are useful, but boring. Examples (java app, web-page) are not so much relevant for MLOps. 
+- ⌚Duration: 5.5 hours
  
   
-## CI/CD Pipeline steps
+## CI/CD Pipeline steps 🐛🍎🚀🔨
 - Code 👨‍💻
 - CI Pipeline 📦:
   - build
@@ -19,14 +19,14 @@
   - production  
 
 ## What is CI / CD? 👨‍💻📦🚀
-### CI as Continuous Integration: code is integrated with other developers all the time
-The goal: to build a package that can be deployed 📦
+### CI as Continuous Integration: code is integrated with other developers all the time 📦
+The goal: to build a package that can be deployed 
 - the build step is still working?
 - unit tests still work?
 - whatt about coding guidelines? (can be mostly automated)
 
-### CD as Continuous Delivery: always done after CI
-The goal: to take the package created by the CI pipeline and to test it further 🚀
+### CD as Continuous Delivery: always done after CI 🚀
+The goal: to take the package created by the CI pipeline and to test it further 
 - can teh package be installed? (by actually installing the package on a system similar to production)
 - running additional tests to check if the package integrates with other systems
 - after a manual check/decision, the package can be installed on a production system as well
@@ -35,7 +35,7 @@ The goal: to take the package created by the CI pipeline and to test it further 
 - the package must first go through all previous stages successfully
 - no manual intervention is required
 
-## Gitlab CI basics
+## Gitlab CI basics 🔨📦
 
 ### Jobs and pipelines 👷🏭
 Pipeline configured and described in `.gitlab-ci.yml` file. Gitlab pipeline consists of jobs. GitLab will execute pipelines with GitLab Runner (runs similarly to a terminal). By default, Gitlab does not save anything. To run a job Gitlab:
@@ -54,9 +54,9 @@ Pipeline execution is too slow? Use caches! The best practice is caching the ext
 
 Sometimes caches misbehave: to delete the cache go from your project > Pipelines > Clear Runner Caches
 
+🍎Idea: (scheduled) pipeline of only one step that updates cache 
 
-
-
+### Variables 💾
 [Predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html) and environment variables.
 
 Different environments and destroying environments.
