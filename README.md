@@ -60,3 +60,61 @@ Sometimes caches misbehave: to delete the cache go from your project > Pipelines
 [Predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html) and environment variables.
 
 Different environments and destroying environments.
+
+### Example
+
+```
+image: node:10
+
+stages:
+  - build
+  - test
+  - deploy
+  - deployment tests
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+build website:
+  stage: build
+  script:
+    - echo $CI_COMMIT_SHORT_SHA
+    - npm install
+    - npm install -g gatsby-cli
+    - gatsby build
+    - sed -i "s/%%VERSION%%/$CI_COMMIT_SHORT_SHA/" ./public/index.html
+  artifacts:
+    paths:
+      - ./public
+
+test artifact:
+  image: alpine
+  stage: test
+  script:
+    - grep -q "Gatsby" ./public/index.html
+
+test website:
+  stage: test
+  script:
+    - npm install
+    - npm install -g gatsby-cli
+    - gatsby serve &
+    - sleep 3
+    - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby"
+
+deploy to surge: 
+  stage: deploy
+  script:
+    - npm install --global surge
+    - surge --project ./public --domain instazone.surge.sh
+
+test deployment:
+  image: alpine
+  stage: deployment tests
+  script:
+    - apk add --no-cache curl
+    - curl -s "https://instazone.surge.sh" | grep -q "Hi people"
+    - curl -s "https://instazone.surge.sh" | grep -q "$CI_COMMIT_SHORT_SHA"
+```
